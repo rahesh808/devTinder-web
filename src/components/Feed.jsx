@@ -20,6 +20,9 @@ const Feed = () => {
   useEffect(() => {
     getFeed();
   }, []);
+
+  if(!feed) return null;
+  if(feed.length === 0) return <h1 className="text-bold text-center">No more Connectons</h1>;
   return <div className=" flex justify-center my-10">
     {feed && <UserCard user={feed?.[0]} status = {true} />}
   </div>;
