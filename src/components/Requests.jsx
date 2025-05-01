@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addRequests, removeRequest } from "../utils/requestSlice";
+import { BASE_URL } from "../utils/constants";
 
 const Requests = () => {
     const dispatch = useDispatch();
@@ -9,7 +10,7 @@ const Requests = () => {
 
     const fetchRequests = async () => {
         try {
-            const resp = await axios.get("http://localhost:7778/user/requests/received", {withCredentials: true});
+            const resp = await axios.get(`${BASE_URL}/user/requests/received`, { withCredentials: true });
             dispatch(addRequests(resp?.data?.data));
         }catch (error) {
             console.error("Error fetching requests:", error);
@@ -18,7 +19,7 @@ const Requests = () => {
 
     const reviewRequest = async (status, _id) => {
         try {
-            await axios.post(`http://localhost:7778/request/receive/${status}/${_id}`, {}, { withCredentials: true });
+          await axios.post(`${BASE_URL}/request/receive/${status}/${_id}`, {}, { withCredentials: true });
             dispatch(removeRequest(_id));
         } catch (error) {
             console.error("Error fetching requests:", error);

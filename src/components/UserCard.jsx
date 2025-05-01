@@ -1,15 +1,17 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { removeFeed } from "../utils/feedSlice";
+import { BASE_URL } from "../utils/constants";
 
 const UserCard = ({user, status}) => {
   const dispatch = useDispatch();
   const fetchUserStatus = async (status, _id) => {
     try {
       await axios.post(
-        `http://localhost:7778/request/send/${status}/${_id}`,
+        `${BASE_URL}/request/send/${status}/${_id}`,
         {},
-        { withCredentials: true });
+        { withCredentials: true }
+      );
     dispatch(removeFeed(_id));
     }catch (error) {
       console.error("Error fetching user status:", error);

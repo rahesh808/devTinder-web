@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../utils/constants";
 
 const Login = () => {
   const [firstName, setFirstName] = useState("");
@@ -16,12 +17,12 @@ const Login = () => {
 
   const handleSignup = async () => {
     try {
-      const resp = await axios.post("http://localhost:7778/signup", {
+      const resp = await axios.post(`${BASE_URL}/signup`, {
         firstName: firstName,
         lastName: lastName,
         emailId: emailId,
         password: password,
-      }, {withCredentials: true});
+      }, { withCredentials: true });
       console.log("Signup successful:", resp.data);
       dispatch(addUser(resp?.data?.data));
       navigate("/");
@@ -33,10 +34,10 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const resp = await axios.post("http://localhost:7778/login", {
+      const resp = await axios.post(`${BASE_URL}/login`, {
         emailId: emailId,
         password: password,
-      }, {withCredentials: true});
+      }, { withCredentials: true });
       //console.log("Login successful:", resp.data);
       dispatch(addUser(resp.data));
       navigate("/");
